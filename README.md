@@ -53,6 +53,17 @@ tb --cloud deploy
 ```
 
 ### How to Run the app
+
+0. Create a `.env` file with the following content and run this command to set the environment variables:
+
+```
+TINYBIRD_TOKEN=<your-tinybird-token>
+```
+
+```bash
+source .env
+```
+
 1. Clone the repository.
 2. Install dependencies.
 3. Run the local development server.
