@@ -1,0 +1,19 @@
+
+DESCRIPTION >
+    Materializes statistics about Lego sets grouped by year, theme and subtheme
+
+NODE aggregate_sets
+SQL >
+    SELECT 
+        s.year,
+        t1.name as theme_name,
+        t2.name as parent_theme_name,
+        countState() as total_sets,
+        sumState(s.num_parts) as total_parts
+    FROM lego_sets s
+    LEFT JOIN lego_themes t1 ON s.theme_id = t1.id
+    LEFT JOIN lego_themes t2 ON t1.parent_id = t2.id
+    GROUP BY s.year, t1.name, t2.name
+
+TYPE MATERIALIZED
+DATASOURCE sets_stats_by_theme_year

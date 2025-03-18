@@ -1,0 +1,36 @@
+
+DESCRIPTION >
+    List all Lego sets with their complete information including theme and subtheme details with filtering capabilities
+
+TOKEN read_endpoints READ
+
+NODE get_sets
+SQL >
+    %
+    SELECT 
+        s.set_num,
+        s.name as set_name,
+        s.year,
+        s.num_parts,
+        s.img_url,
+        t1.name as subtheme_name,
+        t2.name as theme_name
+    FROM lego_sets s
+    LEFT JOIN lego_themes t1 ON s.theme_id = t1.id
+    LEFT JOIN lego_themes t2 ON t1.parent_id = t2.id
+    WHERE 1=1
+    {% if defined(theme) %}
+        AND t2.name = {{String(theme, 'Castle')}}
+    {% end %}
+    {% if defined(subtheme) %}
+        AND t1.name = {{String(subtheme, 'Forestmen')}}
+    {% end %}
+    {% if defined(year_start) %}
+        AND s.year >= {{Int32(year_start, 1987)}}
+    {% end %}
+    {% if defined(year_end) %}
+        AND s.year <= {{Int32(year_end, 1997)}}
+    {% end %}
+    ORDER BY s.year DESC, s.num_parts DESC
+
+TYPE endpoint

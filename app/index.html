@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEGO Analytics Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="lego-brick"></div>
+                <h1>LEGO Analytics Dashboard</h1>
+            </div>
+        </header>
+
+        <div class="dashboard">
+            <div class="filters-panel">
+                <h2>Filters</h2>
+                <div class="filter-group">
+                    <label for="theme-select">Theme:</label>
+                    <select id="theme-select">
+                        <option value="">All Themes</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="subtheme-select">Subtheme:</label>
+                    <select id="subtheme-select">
+                        <option value="">All Subthemes</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Year Range:</label>
+                    <div class="range-inputs">
+                        <input type="number" id="year-start" placeholder="From" min="1950" max="2025" value="2024">
+                        <input type="number" id="year-end" placeholder="To" min="1950" max="2025" value="2025">
+                    </div>
+                </div>
+                <button id="apply-filters" class="lego-button">Apply Filters</button>
+            </div>
+
+            <div class="content-panel">
+                <div class="stats-cards">
+                    <div id="total-sets" class="stat-card">
+                        <h3>Total Sets</h3>
+                        <div class="stat-value">0</div>
+                    </div>
+                    <div id="total-parts" class="stat-card">
+                        <h3>Total Parts</h3>
+                        <div class="stat-value">0</div>
+                    </div>
+                    <div id="avg-parts" class="stat-card">
+                        <h3>Average Parts per Set</h3>
+                        <div class="stat-value">0</div>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3>Sets by Year</h3>
+                        <canvas id="sets-by-year-chart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Average Parts by Year</h3>
+                        <canvas id="parts-by-year-chart"></canvas>
+                    </div>
+                </div>
+
+                <div class="sets-table-container">
+                    <h3>LEGO Sets</h3>
+                    <div class="table-controls">
+                        <input type="text" id="search-sets" placeholder="Search sets...">
+                        <select id="sort-by">
+                            <option value="year_desc">Year (Newest First)</option>
+                            <option value="year_asc">Year (Oldest First)</option>
+                            <option value="parts_desc">Parts (Most First)</option>
+                            <option value="parts_asc">Parts (Least First)</option>
+                        </select>
+                    </div>
+                    <div class="sets-table-wrapper">
+                        <table id="sets-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Set Name</th>
+                                    <th>Year</th>
+                                    <th>Theme</th>
+                                    <th>Subtheme</th>
+                                    <th>Parts</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sets-table-body">
+                                <!-- Rows will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination">
+                        <button id="prev-page" disabled>Previous</button>
+                        <span id="page-info">Page 1</span>
+                        <button id="next-page">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>LEGO Analytics Dashboard | Data powered by Tinybird</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html> 

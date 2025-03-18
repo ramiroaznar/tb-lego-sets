@@ -1,0 +1,13 @@
+
+DESCRIPTION >
+    Lego themes and their parent themes information
+
+SCHEMA >
+    `id` Int32,
+    `name` String,
+    `parent_id` Nullable(Int32)
+
+ENGINE "MergeTree"
+ENGINE_PARTITION_KEY ""
+ENGINE_SORTING_KEY "id"
+        

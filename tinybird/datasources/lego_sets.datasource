@@ -1,0 +1,16 @@
+
+DESCRIPTION >
+    Lego sets information including themes, subthemes, number of parts, year released, etc.
+
+SCHEMA >
+    `set_num` String,
+    `name` String,
+    `year` Int32,
+    `theme_id` Int32,
+    `num_parts` Int32,
+    `img_url` String
+
+ENGINE "MergeTree"
+ENGINE_PARTITION_KEY "tuple()"
+ENGINE_SORTING_KEY "theme_id, year, num_parts"
+        

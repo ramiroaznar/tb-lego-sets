@@ -1,0 +1,14 @@
+
+DESCRIPTION >
+    Aggregated statistics about Lego sets by year, theme and subtheme
+
+SCHEMA >
+    `year` Int32,
+    `theme_name` String,
+    `parent_theme_name` String,
+    `total_sets` AggregateFunction(count),
+    `total_parts` AggregateFunction(sum, Int32)
+
+ENGINE "AggregatingMergeTree"
+ENGINE_PARTITION_KEY ""
+ENGINE_SORTING_KEY "year, parent_theme_name, theme_name"

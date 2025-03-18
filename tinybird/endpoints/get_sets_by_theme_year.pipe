@@ -1,0 +1,32 @@
+
+DESCRIPTION >
+    Retrieves aggregated statistics about Lego sets by year, theme and subtheme with filtering capabilities
+
+TOKEN read_endpoints READ
+
+NODE get_stats
+SQL >
+    %
+    SELECT 
+        year,
+        countMerge(total_sets) as sets_count,
+        sumMerge(total_parts) as parts_count,
+        round(parts_count / sets_count) as avg_parts_per_set
+    FROM sets_stats_by_theme_year
+    WHERE 1=1
+    {% if defined(theme) %}
+        AND parent_theme_name = {{String(theme, 'Castle')}}
+    {% end %}
+    {% if defined(subtheme) %}
+        AND theme_name = {{String(subtheme, 'Forestmen')}}
+    {% end %}
+    {% if defined(year_start) %}
+        AND year >= {{Int32(year_start, 1987)}}
+    {% end %}
+    {% if defined(year_end) %}
+        AND year <= {{Int32(year_end, 1997)}}
+    {% end %}
+    GROUP BY year
+    ORDER BY year ASC
+
+TYPE endpoint
